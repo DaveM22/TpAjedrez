@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import java.awt.Panel;
 import javax.swing.JList;
 
 import CapadeNegocio.ControladorJuego;
+import Clases.Partida;
 import Clases.Pieza;
 
 import java.awt.event.ActionListener;
@@ -28,6 +30,7 @@ import java.awt.Scrollbar;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
+import java.awt.Label;
 
 public class Tablero extends JFrame {
 
@@ -58,7 +61,7 @@ public class Tablero extends JFrame {
 	 */
 	public Tablero() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 586);
+		setBounds(100, 100, 566, 586);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,32 +73,32 @@ public class Tablero extends JFrame {
 		contentPane.add(textPane);
 		
 		final TextArea textArea = new TextArea();
-		textArea.setBounds(127, 113, 95, 229);
+		textArea.setBounds(127, 113, 95, 286);
 		contentPane.add(textArea);
 		
 		final TextArea textArea_1 = new TextArea();
-		textArea_1.setBounds(10, 113, 95, 229);
+		textArea_1.setBounds(10, 113, 95, 286);
 		contentPane.add(textArea_1);
 		
 		textField = new JTextField();
-		textField.setBounds(80, 11, 111, 20);
+		textField.setBounds(139, 11, 111, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(80, 42, 111, 20);
+		textField_1.setBounds(139, 42, 111, 20);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
 		
 	
 		
-		JLabel lblJugador = new JLabel("Jugador 1");
-		lblJugador.setBounds(10, 14, 64, 14);
+		JLabel lblJugador = new JLabel("Jugador Blancas");
+		lblJugador.setBounds(10, 14, 111, 14);
 		contentPane.add(lblJugador);
 		
-		JLabel lblJugador_1 = new JLabel("Jugador 2");
-		lblJugador_1.setBounds(10, 45, 60, 14);
+		JLabel lblJugador_1 = new JLabel("Jugador Negras");
+		lblJugador_1.setBounds(10, 45, 95, 14);
 		contentPane.add(lblJugador_1);
 		
 		JLabel lblOrigen = new JLabel("Origen");
@@ -120,10 +123,26 @@ public class Tablero extends JFrame {
 		btnMover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ControladorJuego ctrl = new ControladorJuego();
-				  
+				 Partida p = ControladorJuego.getPartidaActual();
 			       textPane.setText(ctrl.realizarMovimiento(textField_2.getText(), textField_3.getText(), textPane.getText()));
+			       ControladorJuego.getPartidaActual().setTurno(textPane.getText());
 			       textArea_1.setText(ctrl.mostrarfichasNegras());
 			        textArea.setText(ctrl.mostrarfichasBlancas());
+			        if(ctrl.estadoReyB().getPosicion()=="")
+			        {
+			        	JOptionPane.showMessageDialog(null, "¡Ganador fichas negras!"+"\n"+"El ganador es: "+p.getDniNegro(),"Fin del juego",JOptionPane.ERROR_MESSAGE);
+			           ctrl.borrarPiezas(textField.getText(), textField_1.getText());
+			           ctrl.terminarPartida(textField.getText(), textField_1.getText());
+			        }
+			        else
+			        {
+			        	if(ctrl.estadoReyN().getPosicion()=="")
+			        	{
+			        		JOptionPane.showMessageDialog(null, "¡Ganador fichas blancas!"+"El ganador es: "+p.getDniBlanco(),"Fin del juego",JOptionPane.ERROR_MESSAGE);
+			        	     ctrl.borrarPiezas(textField.getText(), textField_1.getText());
+					         ctrl.terminarPartida(textField.getText(), textField_1.getText());
+			        	}
+			        }
 			}
 		});
 		btnMover.setBounds(292, 216, 89, 23);
@@ -142,6 +161,7 @@ public class Tablero extends JFrame {
 					
 					ctrl.inicializatablero();
 					ctrl.traerPosiciones(textField.getText(), textField_1.getText());
+					textPane.setText(ControladorJuego.getPartidaActual().getTurno());
 					  textArea_1.setText(ctrl.mostrarfichasNegras());
 				        textArea.setText(ctrl.mostrarfichasBlancas());
 				}
@@ -163,12 +183,19 @@ public class Tablero extends JFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ControladorJuego ctrl = new ControladorJuego();
+				Partida p = ControladorJuego.getPartidaActual();
+				ctrl.terminarPartida(textField.getText(), textField_1.getText());
 				ctrl.borrarPiezas(textField.getText(),textField_1.getText());
+				ctrl.nuevoJuego(p.getDniBlanco(), p.getDniNegro(), p.getTurno());
 				ctrl.asignarPiezas(textField.getText(), textField_1.getText());
 			}
 		});
 		btnGuardar.setBounds(322, 41, 89, 23);
 		contentPane.add(btnGuardar);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(270, 269, 256, 171);
+		contentPane.add(panel);
 		
 
 		

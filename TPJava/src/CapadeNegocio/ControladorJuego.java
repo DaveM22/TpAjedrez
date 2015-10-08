@@ -9,12 +9,14 @@ import CapaDatos.CatalogoPiezas;
 import CapaDeInterfaz.Tablero;
 import Clases.Alfil;
 import Clases.Dama;
+import Clases.Partida;
 import Clases.Peon;
 import Clases.Pieza;
 import Clases.Rey;
 import Clases.Torre;
 
 public class ControladorJuego {
+private static Partida PartidaActual;
 private static  ArrayList<Pieza> piezas = new ArrayList<Pieza>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -204,4 +206,46 @@ frame1.setVisible(true);
 	{
 	ControladorJuego.piezas=null;
 	}
+	
+	public Pieza estadoReyN()
+	{
+		for(Pieza i:piezas)
+		{
+		if(i.getClass().getSimpleName().equals("Rey")&&i.getColor().equals("Negro"))
+			return i;
+		}
+		return null;
+	}
+	
+	public Pieza estadoReyB()
+	{
+		for(Pieza i:piezas)
+		{
+		if(i.getClass().getSimpleName().equals("Rey")&&i.getColor().equals("Blanco"))
+			return i;
+		}
+		return null;
+	}
+	
+	public void terminarPartida(String dni1,String dni2)
+	{
+		CatalogoPartida cp = new CatalogoPartida();
+		cp.BorrarPartida(dni1, dni2);
+	}
+	
+	/*
+	public String asignarUltimoTurno(String dni1,String dni2)
+	{
+		CatalogoPartida cp = new CatalogoPartida();
+		return (cp.UltimoTurno(dni1, dni2));
+	}
+*/
+	public static Partida getPartidaActual() {
+		return PartidaActual;
+	}
+
+	public static void setPartidaActual(Partida partidaActual) {
+		PartidaActual = partidaActual;
+	}
+
 }

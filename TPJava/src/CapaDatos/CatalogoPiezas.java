@@ -87,7 +87,7 @@ public class CatalogoPiezas {
 	
 	PreparedStatement stmt = null;
 	try {
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select id_pieza,pieza,posicion,color from piezas where dni1=? and dni2=? ");
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select id_pieza,pieza,posicion,color from piezas where dni1=? and dni2=?");
 	    stmt.setString(1, dni1);
 	    stmt.setString(2, dni2);
 		rs=stmt.executeQuery();
