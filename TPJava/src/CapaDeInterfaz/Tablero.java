@@ -39,6 +39,7 @@ public class Tablero extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private Partida p;
 
 	/**
 	 * Launch the application.
@@ -122,27 +123,7 @@ public class Tablero extends JFrame {
 		JButton btnMover = new JButton("Mover");
 		btnMover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ControladorJuego ctrl = new ControladorJuego();
-				 Partida p = ControladorJuego.getPartidaActual();
-			       textPane.setText(ctrl.realizarMovimiento(textField_2.getText(), textField_3.getText(), textPane.getText()));
-			       ControladorJuego.getPartidaActual().setTurno(textPane.getText());
-			       textArea_1.setText(ctrl.mostrarfichasNegras());
-			        textArea.setText(ctrl.mostrarfichasBlancas());
-			        if(ctrl.estadoReyB().getPosicion()=="")
-			        {
-			        	JOptionPane.showMessageDialog(null, "¡Ganador fichas negras!"+"\n"+"El ganador es: "+p.getDniNegro(),"Fin del juego",JOptionPane.ERROR_MESSAGE);
-			           ctrl.borrarPiezas(textField.getText(), textField_1.getText());
-			           ctrl.terminarPartida(textField.getText(), textField_1.getText());
-			        }
-			        else
-			        {
-			        	if(ctrl.estadoReyN().getPosicion()=="")
-			        	{
-			        		JOptionPane.showMessageDialog(null, "¡Ganador fichas blancas!"+"El ganador es: "+p.getDniBlanco(),"Fin del juego",JOptionPane.ERROR_MESSAGE);
-			        	     ctrl.borrarPiezas(textField.getText(), textField_1.getText());
-					         ctrl.terminarPartida(textField.getText(), textField_1.getText());
-			        	}
-			        }
+			mover(textPane,textArea,textArea_1);
 			}
 		});
 		btnMover.setBounds(292, 216, 89, 23);
@@ -155,25 +136,7 @@ public class Tablero extends JFrame {
 		JButton btnJugar = new JButton("Jugar");
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ControladorJuego ctrl = new ControladorJuego();
-				if(ctrl.partidaPendiente(textField.getText(), textField_1.getText()))
-					{
-					
-					ctrl.inicializatablero();
-					ctrl.traerPosiciones(textField.getText(), textField_1.getText());
-					textPane.setText(ControladorJuego.getPartidaActual().getTurno());
-					  textArea_1.setText(ctrl.mostrarfichasNegras());
-				        textArea.setText(ctrl.mostrarfichasBlancas());
-				}
-				else
-				{
-				ctrl.inicializatablero();
-				textPane.setText("Blanco");
-		        textArea_1.setText(ctrl.mostrarfichasNegras());
-		        textArea.setText(ctrl.mostrarfichasBlancas());
-		        ctrl.nuevoJuego(textField.getText(), textField_1.getText(), "Blanco");
-		        ctrl.asignarPiezas(textField.getText(),textField_1.getText());
-				}
+			jugar(textPane,textArea,textArea_1);
 				}
 		});
 		btnJugar.setBounds(322, 10, 89, 23);
@@ -182,13 +145,10 @@ public class Tablero extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ControladorJuego ctrl = new ControladorJuego();
-				Partida p = ControladorJuego.getPartidaActual();
-				ctrl.terminarPartida(textField.getText(), textField_1.getText());
-				ctrl.borrarPiezas(textField.getText(),textField_1.getText());
-				ctrl.nuevoJuego(p.getDniBlanco(), p.getDniNegro(), p.getTurno());
-				ctrl.asignarPiezas(textField.getText(), textField_1.getText());
+		    guardar(textPane,textArea,textArea_1);
 			}
+
+			
 		});
 		btnGuardar.setBounds(322, 41, 89, 23);
 		contentPane.add(btnGuardar);
@@ -205,4 +165,84 @@ public class Tablero extends JFrame {
 		
 	
 	}
+	
+	private void jugar(JTextComponent textPane, TextArea textArea,TextArea textArea_1)
+	{
+		ControladorJuego ctrl = new ControladorJuego();
+		
+		
+		if(ctrl.partidaPendiente(textField.getText(), textField_1.getText()))
+			{
+			ControladorJuego.setPiezas();
+			ctrl.tablero();
+			ctrl.traerPosiciones(textField.getText(), textField_1.getText());
+			ctrl.eliminarFichasNulas();
+			textPane.setText(ControladorJuego.getPartidaActual().getTurno());
+			  textArea_1.setText(ctrl.mostrarfichasNegras());
+		        textArea.setText(ctrl.mostrarfichasBlancas());
+		}
+		else
+		{
+		ControladorJuego.setPiezas();
+		ctrl.inicializatablero();
+		textPane.setText("Blanco");
+        textArea_1.setText(ctrl.mostrarfichasNegras());
+        textArea.setText(ctrl.mostrarfichasBlancas());
+        ctrl.nuevoJuego(textField.getText(), textField_1.getText(), "Blanco");
+        p=new Partida(textField.getText(),textField_1.getText(),"Blanco");
+        ControladorJuego.setPartidaActual(p);
+        ctrl.asignarPiezas(textField.getText(),textField_1.getText());
+		}
+	}
+	
+	private void mover(JTextPane textPane, TextArea textArea, TextArea textArea_1)
+	{
+		ControladorJuego ctrl = new ControladorJuego();
+		 Partida p = ControladorJuego.getPartidaActual();
+		 
+	       textPane.setText(ctrl.realizarMovimiento(textField_2.getText(), textField_3.getText(), textPane.getText()));
+	       ControladorJuego.getPartidaActual().setTurno(textPane.getText());
+	       System.out.println(ControladorJuego.getPartidaActual().getTurno());
+	       Pieza reyN = ctrl.estadoReyN();
+			Pieza reyB = ctrl.estadoReyB();
+	       textArea_1.setText(ctrl.mostrarfichasNegras());
+	        textArea.setText(ctrl.mostrarfichasBlancas());
+	        
+	        if(reyB==null)
+	        {
+	        	JOptionPane.showMessageDialog(null, "¡Ganador fichas negras!"+"\n"+"El ganador es: "+p.getDniNegro(),"Fin del juego",JOptionPane.ERROR_MESSAGE);
+	           ctrl.borrarPiezas(textField.getText(), textField_1.getText());
+	           ctrl.terminarPartida(textField.getText(), textField_1.getText());
+	           ControladorJuego.setPiezas();
+	           ctrl.mostrarfichasNegras();
+	           ctrl.mostrarfichasBlancas();
+	        }
+	        else
+	        {
+	        	if(reyN==null)
+	        	{
+	        		JOptionPane.showMessageDialog(null, "¡Ganador fichas blancas!"+"El ganador es: "+p.getDniBlanco(),"Fin del juego",JOptionPane.ERROR_MESSAGE);
+	        	     ctrl.borrarPiezas(textField.getText(), textField_1.getText());
+			         ctrl.terminarPartida(textField.getText(), textField_1.getText());
+			         ControladorJuego.setPiezas();
+			      
+	        	}
+	        }
+	    
+	}
+
+	private void guardar(JTextPane textPane, TextArea textArea,
+			TextArea textArea_1) {
+		// TODO Auto-generated method stub
+		ControladorJuego ctrl = new ControladorJuego();
+		Partida p = ControladorJuego.getPartidaActual();
+		ctrl.terminarPartida(textField.getText(), textField_1.getText());
+		ctrl.borrarPiezas(textField.getText(),textField_1.getText());
+		ctrl.nuevoJuego(p.getDniBlanco(), p.getDniNegro(), p.getTurno());
+		ctrl.asignarPiezas(textField.getText(), textField_1.getText());
+	}
+
+
 }
+
+

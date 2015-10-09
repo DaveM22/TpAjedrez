@@ -91,19 +91,26 @@ public class CatalogoPiezas {
 	    stmt.setString(1, dni1);
 	    stmt.setString(2, dni2);
 		rs=stmt.executeQuery();
+		
 
 	while(rs.next()&& rs!=null)
 	{
+		
+	
      for(Pieza i:ControladorJuego.getPiezas())
      {
-    	 if((i.getClass().getSimpleName().equals(rs.getString("pieza")))&&(i.getColor().equals(rs.getString("color")))&&(i.getId_pieza().equals(rs.getString("id_pieza"))))
+    	 if((i.getClass().getSimpleName().equals(rs.getString("pieza")))&&(i.getColor().equals(rs.getString("color")))&&(i.getId_pieza().equals(rs.getString("id_pieza")) ))
     			 {
+    		
+    	
     		 i.setPosicion(rs.getString("posicion"));
     		
     			 }
+   
      }
 	
 	}
+
 	ControladorJuego.getPiezas().addAll(listado);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block

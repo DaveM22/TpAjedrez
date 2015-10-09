@@ -111,9 +111,11 @@ public class CatalogoPartida {
 		    stmt.setString(2, dni2);
 		    rs=stmt.executeQuery();
 		    if(rs!=null && rs.next())
+		    {
 		    respuesta = true;
 		    p= new Partida(rs.getString("dni1"),rs.getString("dni2"),rs.getString("turno"));
 		    ControladorJuego.setPartidaActual(p);
+		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

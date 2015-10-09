@@ -59,13 +59,48 @@ frame1.setVisible(true);
 		
 	}
 	
+	
+	public void tablero()
+	{
+		int i;
+		int j=1;
+		getPiezas().add(new Rey("R","Negro",""));
+		getPiezas().add(new Dama("D","Negro",""));
+		getPiezas().add(new Alfil("A1","Negro",""));
+		getPiezas().add(new Alfil("A2","Negro",""));
+		getPiezas().add(new Torre("T1","Negro",""));
+		getPiezas().add(new Torre("T2","Negro",""));
+		for(i=97;i<105;i++)
+		{
+			getPiezas().add(new Peon("P"+j,"Negro",""));
+			j++;
+		}
+		
+		j=1;
+		getPiezas().add(new Rey("R","Blanco",""));
+		getPiezas().add(new Dama("D","Blanco",""));
+		getPiezas().add(new Alfil("A1","Blanco",""));
+		getPiezas().add(new Alfil("A2","Blanco",""));
+		getPiezas().add(new Torre("T1","Blanco",""));
+		getPiezas().add(new Torre("T2","Blanco",""));
+		for(i=97;i<105;i++)
+		{
+			getPiezas().add(new Peon("P"+j,"Blanco",""));
+			j++;
+		}
+		
+		
+		
+	}
+	
 	public String mostrarfichasNegras()
 	{
 		String lista ="";
 		for(Pieza i:getPiezas())
 		{
-			if(i.getColor()=="Negro" && i.getPosicion()!="")
+			if(i.getColor()=="Negro")
 	  lista += i.getClass().getSimpleName()+" "+i.getPosicion()+"\n";
+			
 		}
 		return lista;
 	}
@@ -75,7 +110,7 @@ frame1.setVisible(true);
 		String lista ="";
 		for(Pieza i:getPiezas())
 		{
-			if(i.getColor()=="Blanco" && i.getPosicion()!="")
+			if(i.getColor()=="Blanco")
 	  lista += i.getClass().getSimpleName()+" "+i.getPosicion()+"\n";
 		}
 		return lista;
@@ -189,12 +224,16 @@ frame1.setVisible(true);
 	
 	public void DescontarPieza(String posorigen,String posdestino)
 	{
+		Pieza p=null;
 		for(Pieza i:piezas)
 		{
 			if(i.getPosicion().equals(posdestino))
-			i.setPosicion("");
+			{
+			p=i;
+			}
 			
 		}
+		piezas.remove(p);
 		this.buscarPieza(posorigen).setPosicion(posdestino);
 	}
 	
@@ -204,7 +243,7 @@ frame1.setVisible(true);
 
 	public static void setPiezas()
 	{
-	ControladorJuego.piezas=null;
+	piezas.removeAll(piezas);
 	}
 	
 	public Pieza estadoReyN()
@@ -233,19 +272,24 @@ frame1.setVisible(true);
 		cp.BorrarPartida(dni1, dni2);
 	}
 	
-	/*
-	public String asignarUltimoTurno(String dni1,String dni2)
-	{
-		CatalogoPartida cp = new CatalogoPartida();
-		return (cp.UltimoTurno(dni1, dni2));
-	}
-*/
+
 	public static Partida getPartidaActual() {
 		return PartidaActual;
 	}
 
 	public static void setPartidaActual(Partida partidaActual) {
 		PartidaActual = partidaActual;
+	}
+	
+	public void eliminarFichasNulas()
+	{
+		ArrayList<Pieza> cant = new ArrayList<Pieza>();
+		for(Pieza i:piezas)
+		{
+			if(i.getPosicion().equals(""))
+			cant.add(i);
+		}
+		piezas.removeAll(cant);
 	}
 
 }
