@@ -195,18 +195,9 @@ frame1.setVisible(true);
 	
 	public void nuevoJuego(String dni1,String dni2,String color)
 	{
-		CatalogoPartida cp = new CatalogoPartida();
-		boolean dni_1;
-		boolean dni_2;
-		dni_1=cp.buscarUsuarios(dni1);
-		dni_2=cp.buscarUsuarios(dni2);
-		if(dni_1==true & dni_2==true)
+	CatalogoPartida cp = new CatalogoPartida();
 		cp.agregarPartida(dni1, dni2, color);
-		else if(dni_1==false)
-			JOptionPane.showMessageDialog(null, "Jugador: "+dni1+" no registrado","Error",JOptionPane.ERROR_MESSAGE);
-		else 
-			JOptionPane.showMessageDialog(null, "Jugador: "+dni2+" no registrado","Error",JOptionPane.ERROR_MESSAGE);	
-			
+
 		
 	}
 	

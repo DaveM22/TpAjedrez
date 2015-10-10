@@ -1,6 +1,7 @@
 package CapaDeInterfaz;
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.TextArea;
+
+import CapaDatos.CatalogoPartida;
 import CapadeNegocio.ControladorJuego;
 import Clases.Partida;
 import Clases.Pieza;
@@ -73,12 +76,12 @@ public class Tablero extends JFrame {
 		
 		final TextArea textArea = new TextArea();
 		textArea.setEditable(false);
-		textArea.setBounds(127, 113, 95, 286);
+		textArea.setBounds(127, 124, 95, 286);
 		contentPane.add(textArea);
 		
 		final TextArea textArea_1 = new TextArea();
 		textArea_1.setEditable(false);
-		textArea_1.setBounds(10, 113, 95, 286);
+		textArea_1.setBounds(10, 124, 95, 286);
 		contentPane.add(textArea_1);
 		
 		textField = new JTextField();
@@ -180,6 +183,14 @@ public class Tablero extends JFrame {
 		lblNewLabel.setBounds(270, 265, 258, 256);
 		contentPane.add(lblNewLabel);
 		
+		JLabel lblFichasNegras = new JLabel("Fichas negras");
+		lblFichasNegras.setBounds(28, 104, 66, 14);
+		contentPane.add(lblFichasNegras);
+		
+		JLabel lblNewLabel_1 = new JLabel("Fichas Blancas");
+		lblNewLabel_1.setBounds(139, 104, 83, 14);
+		contentPane.add(lblNewLabel_1);
+		
 
 		
 
@@ -220,14 +231,35 @@ public class Tablero extends JFrame {
 			JTextComponent textPane) {
 		ControladorJuego ctrl = new ControladorJuego();
 		ControladorJuego.setPiezas();
-		ctrl.inicializatablero();
+		CatalogoPartida cp = new CatalogoPartida();
+		boolean dni_1;
+		boolean dni_2;
+		dni_1=cp.buscarUsuarios(textField.getText());
+		dni_2=cp.buscarUsuarios(textField_1.getText());
+		if(dni_1==true && dni_2==true)
+		{
+			ctrl.inicializatablero();
 		textPane.setText("Blanco");
-        textArea_1.setText(ctrl.mostrarfichasNegras());
+		ctrl.nuevoJuego(textField.getText(), textField_1.getText(), "Blanco");
+		textArea_1.setText(ctrl.mostrarfichasNegras());
         textArea.setText(ctrl.mostrarfichasBlancas());
-        ctrl.nuevoJuego(textField.getText(), textField_1.getText(), "Blanco");
         p=new Partida(textField.getText(),textField_1.getText(),"Blanco");
         ControladorJuego.setPartidaActual(p);
         ctrl.asignarPiezas(textField.getText(),textField_1.getText());
+		}
+		else 
+		{
+			if(dni_1==false & dni_2==false)
+			JOptionPane.showMessageDialog(null, "Jugadores  no registrados","Error",JOptionPane.ERROR_MESSAGE);
+		else 
+		{
+			if(dni_1==false)
+			JOptionPane.showMessageDialog(null, "Jugador: "+textField.getText()+" no registrado","Error",JOptionPane.ERROR_MESSAGE);	
+			else
+				JOptionPane.showMessageDialog(null, "Jugador: "+textField_1.getText()+" no registrado","Error",JOptionPane.ERROR_MESSAGE);
+		}
+		}
+
 		
 	}
 
