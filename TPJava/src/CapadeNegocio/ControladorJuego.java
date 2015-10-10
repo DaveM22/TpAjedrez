@@ -20,7 +20,7 @@ private static Partida PartidaActual;
 private static  ArrayList<Pieza> piezas = new ArrayList<Pieza>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-ControladorJuego ctrl = new ControladorJuego();
+
 Tablero frame1 = new Tablero();
 frame1.setVisible(true);
 

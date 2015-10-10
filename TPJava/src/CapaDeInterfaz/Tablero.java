@@ -202,7 +202,6 @@ public class Tablero extends JFrame {
 		 
 	       textPane.setText(ctrl.realizarMovimiento(textField_2.getText(), textField_3.getText(), textPane.getText()));
 	       ControladorJuego.getPartidaActual().setTurno(textPane.getText());
-	       System.out.println(ControladorJuego.getPartidaActual().getTurno());
 	       Pieza reyN = ctrl.estadoReyN();
 			Pieza reyB = ctrl.estadoReyB();
 	       textArea_1.setText(ctrl.mostrarfichasNegras());
@@ -225,6 +224,8 @@ public class Tablero extends JFrame {
 	        	     ctrl.borrarPiezas(textField.getText(), textField_1.getText());
 			         ctrl.terminarPartida(textField.getText(), textField_1.getText());
 			         ControladorJuego.setPiezas();
+			         ctrl.mostrarfichasNegras();
+			          ctrl.mostrarfichasBlancas();
 			      
 	        	}
 	        }
