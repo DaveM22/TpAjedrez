@@ -164,7 +164,9 @@ frame1.setVisible(true);
 			 JOptionPane.showMessageDialog(null, "Movimiento invalido para la pieza","error",JOptionPane.ERROR_MESSAGE);
 
 	 }
+	 else{
 	JOptionPane.showMessageDialog(null, "No se encuentra ninguna pieza en la posicion de origen","error",JOptionPane.ERROR_MESSAGE);
+	 }
 	return color;
 	}
 	
