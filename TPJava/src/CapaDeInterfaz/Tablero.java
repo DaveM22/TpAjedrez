@@ -1,9 +1,6 @@
 package CapaDeInterfaz;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,10 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.TextArea;
-import java.awt.Panel;
-
-import javax.swing.JList;
-
 import CapadeNegocio.ControladorJuego;
 import Clases.Partida;
 import Clases.Pieza;
@@ -28,13 +21,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextPane;
 
-import java.awt.Scrollbar;
-import java.util.ArrayList;
-
-import javax.swing.JScrollPane;
-
-import java.awt.Label;
-
 public class Tablero extends JFrame {
 
 	private JPanel contentPane;
@@ -43,8 +29,7 @@ public class Tablero extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private Partida p;
-	private ImageIcon image;
-	private JLabel labelI;
+	
 
 	/**
 	 * Launch the application.

@@ -68,7 +68,6 @@ public class CatalogoPartida {
 	{
 		boolean respuesta=false;
 		ResultSet rs = null;
-		Partida p=null;
 		PreparedStatement stmt = null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select dni from jugadores where dni=?");

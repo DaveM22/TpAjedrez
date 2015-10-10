@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import CapaDatos.FactoryConexion;
 import CapadeNegocio.ControladorJuego;
-import Clases.Alfil;
-import Clases.Peon;
 import Clases.Pieza;
-import Clases.Rey;
 
 public class CatalogoPiezas {
 	
@@ -80,10 +77,9 @@ public class CatalogoPiezas {
 	
 	public void traerPosicionesBD(String dni1, String dni2)
 	{
-	ControladorJuego ctrl = new ControladorJuego();
     ArrayList<Pieza> listado = new ArrayList<Pieza>();
 	ResultSet rs = null;
-	Pieza p = null;
+
 	
 	PreparedStatement stmt = null;
 	try {
