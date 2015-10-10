@@ -23,7 +23,7 @@ public class Peon extends Pieza {
 	}
 	else
 	{
-      if(distancia==1 && a.substring(0,1).equals(b.substring(0,1)) && c!=d)
+      if(distancia==1 && a.substring(0,1).equals(b.substring(0,1)) && c!=d && cp.buscarPieza(b)==null)
     	  return true;
       else return false;
 	}
