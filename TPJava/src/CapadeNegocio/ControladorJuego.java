@@ -152,9 +152,10 @@ frame1.setVisible(true);
 			 }
 		 }
 		 else
-			 JOptionPane.showMessageDialog(null, "Movimiento invalido","error",JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Movimiento invalido para la pieza","error",JOptionPane.ERROR_MESSAGE);
 
 	 }
+	JOptionPane.showMessageDialog(null, "No se encuentra ninguna pieza en la posicion de origen","error",JOptionPane.ERROR_MESSAGE);
 	return color;
 	}
 	
@@ -269,7 +270,12 @@ frame1.setVisible(true);
 	public void terminarPartida(String dni1,String dni2)
 	{
 		CatalogoPartida cp = new CatalogoPartida();
+		CatalogoPiezas p = new CatalogoPiezas();
 		cp.BorrarPartida(dni1, dni2);
+		p.BorrarPosicionesAntiguas(dni1, dni2);
+		this.mostrarfichasNegras();
+		this.mostrarfichasBlancas();
+		
 	}
 	
 
