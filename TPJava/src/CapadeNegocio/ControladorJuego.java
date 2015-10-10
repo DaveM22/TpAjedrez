@@ -8,6 +8,7 @@ import CapaDatos.CatalogoPartida;
 import CapaDatos.CatalogoPiezas;
 import CapaDeInterfaz.Tablero;
 import Clases.Alfil;
+import Clases.Caballo;
 import Clases.Dama;
 import Clases.Partida;
 import Clases.Peon;
@@ -36,6 +37,8 @@ frame1.setVisible(true);
 		getPiezas().add(new Alfil("A2","Negro","f1"));
 		getPiezas().add(new Torre("T1","Negro","a1"));
 		getPiezas().add(new Torre("T2","Negro","h1"));
+		getPiezas().add(new Caballo("C1","Negro","b1"));
+		getPiezas().add(new Caballo("C2","Negro","g1"));
 		for(i=97;i<105;i++)
 		{
 			getPiezas().add(new Peon("P"+j,"Negro",(char)i+"2"));
@@ -49,6 +52,8 @@ frame1.setVisible(true);
 		getPiezas().add(new Alfil("A2","Blanco","f8"));
 		getPiezas().add(new Torre("T1","Blanco","a8"));
 		getPiezas().add(new Torre("T2","Blanco","h8"));
+		getPiezas().add(new Caballo("C1","Blanco","b8"));
+		getPiezas().add(new Caballo("C2","Blanco","g8"));
 		for(i=97;i<105;i++)
 		{
 			getPiezas().add(new Peon("P"+j,"Blanco",(char)i+"7"));
@@ -70,6 +75,8 @@ frame1.setVisible(true);
 		getPiezas().add(new Alfil("A2","Negro",""));
 		getPiezas().add(new Torre("T1","Negro",""));
 		getPiezas().add(new Torre("T2","Negro",""));
+		getPiezas().add(new Caballo("C1","Negro",""));
+		getPiezas().add(new Caballo("C2","Negro",""));
 		for(i=97;i<105;i++)
 		{
 			getPiezas().add(new Peon("P"+j,"Negro",""));
@@ -83,6 +90,8 @@ frame1.setVisible(true);
 		getPiezas().add(new Alfil("A2","Blanco",""));
 		getPiezas().add(new Torre("T1","Blanco",""));
 		getPiezas().add(new Torre("T2","Blanco",""));
+		getPiezas().add(new Caballo("C1","Blanco",""));
+		getPiezas().add(new Caballo("C2","Blanco",""));
 		for(i=97;i<105;i++)
 		{
 			getPiezas().add(new Peon("P"+j,"Blanco",""));
@@ -185,7 +194,18 @@ frame1.setVisible(true);
 	public void nuevoJuego(String dni1,String dni2,String color)
 	{
 		CatalogoPartida cp = new CatalogoPartida();
+		boolean dni_1;
+		boolean dni_2;
+		dni_1=cp.buscarUsuarios(dni1);
+		dni_2=cp.buscarUsuarios(dni2);
+		if(dni_1==true & dni_2==true)
 		cp.agregarPartida(dni1, dni2, color);
+		else if(dni_1==false)
+			JOptionPane.showMessageDialog(null, "Jugador: "+dni1+" no registrado","Error",JOptionPane.ERROR_MESSAGE);
+		else 
+			JOptionPane.showMessageDialog(null, "Jugador: "+dni2+" no registrado","Error",JOptionPane.ERROR_MESSAGE);	
+			
+		
 	}
 	
 	public void asignarPiezas(String dni1,String dni2)

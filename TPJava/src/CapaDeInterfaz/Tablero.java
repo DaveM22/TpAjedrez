@@ -2,11 +2,13 @@ package CapaDeInterfaz;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -30,6 +32,7 @@ import java.awt.Scrollbar;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
+
 import java.awt.Label;
 
 public class Tablero extends JFrame {
@@ -40,6 +43,8 @@ public class Tablero extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private Partida p;
+	private ImageIcon image;
+	private JLabel labelI;
 
 	/**
 	 * Launch the application.
@@ -62,6 +67,11 @@ public class Tablero extends JFrame {
 	 */
 	public Tablero() {
 		
+
+		
+		
+		
+		
 		final String LetrasValidas="abcdefgh";
 		final String NumerosValidos="12345678";
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,10 +87,12 @@ public class Tablero extends JFrame {
 		contentPane.add(textPane);
 		
 		final TextArea textArea = new TextArea();
+		textArea.setEditable(false);
 		textArea.setBounds(127, 113, 95, 286);
 		contentPane.add(textArea);
 		
 		final TextArea textArea_1 = new TextArea();
+		textArea_1.setEditable(false);
 		textArea_1.setBounds(10, 113, 95, 286);
 		contentPane.add(textArea_1);
 		
@@ -106,20 +118,20 @@ public class Tablero extends JFrame {
 		contentPane.add(lblJugador_1);
 		
 		JLabel lblOrigen = new JLabel("Origen");
-		lblOrigen.setBounds(270, 133, 46, 14);
+		lblOrigen.setBounds(312, 133, 46, 14);
 		contentPane.add(lblOrigen);
 		
 		JLabel lblDestino = new JLabel("Destino");
-		lblDestino.setBounds(270, 176, 46, 14);
+		lblDestino.setBounds(312, 176, 46, 14);
 		contentPane.add(lblDestino);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(325, 130, 86, 20);
+		textField_2.setBounds(386, 130, 86, 20);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(325, 173, 86, 20);
+		textField_3.setBounds(386, 173, 86, 20);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 		
@@ -144,7 +156,7 @@ public class Tablero extends JFrame {
 				}
 			}
 		});
-		btnMover.setBounds(292, 216, 89, 23);
+		btnMover.setBounds(359, 215, 89, 23);
 		contentPane.add(btnMover);
 		
 		JLabel lblTurno = new JLabel("Turno");
@@ -164,7 +176,7 @@ public class Tablero extends JFrame {
 				
 			}
 		});
-		btnJugar.setBounds(322, 10, 89, 23);
+		btnJugar.setBounds(383, 10, 89, 23);
 		contentPane.add(btnJugar);
 		
 		JButton btnGuardar = new JButton("Guardar");
@@ -175,12 +187,13 @@ public class Tablero extends JFrame {
 
 			
 		});
-		btnGuardar.setBounds(322, 41, 89, 23);
+		btnGuardar.setBounds(386, 41, 89, 23);
 		contentPane.add(btnGuardar);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(270, 269, 256, 171);
-		contentPane.add(panel);
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(Tablero.class.getResource("/Imagenes/board.png")));
+		lblNewLabel.setBounds(270, 265, 258, 256);
+		contentPane.add(lblNewLabel);
 		
 
 		
@@ -294,10 +307,6 @@ public class Tablero extends JFrame {
 			JOptionPane.showMessageDialog(null, "No hay ninguna partida en juego","Error de ingreso de partida",JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-	
-	
-
 }
 
 

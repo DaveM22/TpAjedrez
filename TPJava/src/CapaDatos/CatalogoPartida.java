@@ -64,19 +64,20 @@ public class CatalogoPartida {
 		}
 	}
 	
-	/*
-	public String UltimoTurno(String dni1, String dni2)
+	public boolean buscarUsuarios(String dni1)
 	{
-		String respuesta=null;
+		boolean respuesta=false;
 		ResultSet rs = null;
+		Partida p=null;
 		PreparedStatement stmt = null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select turno from partida where dni1=? and dni2=?");
-		    stmt.setString(1, dni1);
-		    stmt.setString(2, dni2);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select dni from jugadores where dni=?");
+		    stmt.setString(1, dni1);;
 		    rs=stmt.executeQuery();
-		    if(rs.next())
-	        respuesta=rs.getString("turno");
+		    if(rs!=null && rs.next())
+		    {
+		    respuesta = true;
+		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,7 +99,18 @@ public class CatalogoPartida {
 		}
 		return respuesta;
 	}
-	*/
+
+
+
+
+
+
+
+
+
+
+
+
 	public boolean buscarPartida(String dni1, String dni2)
 	{
 		boolean respuesta=false;
