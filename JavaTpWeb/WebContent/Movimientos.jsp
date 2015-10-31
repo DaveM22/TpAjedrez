@@ -1,3 +1,4 @@
+<%@page import="Servlets.Guardar"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.util.ArrayList"%>
@@ -36,6 +37,7 @@ ArrayList<Pieza> piezas = (ArrayList<Pieza>)session.getAttribute("listado");
 <textarea rows="16" cols="12"><%=resultadonegro %></textarea>
 </div>
 <br>
+<img alt="logo" src="<html:rewrite page='/WebContent/board.png'/>" width="100%"/>
 <div style="position:absolute; top: 8px; left:600px;">
 <%=f %><br>
 <textarea rows="16" cols="12"><%=resultadoblanco %></textarea>
@@ -50,9 +52,10 @@ ArrayList<Pieza> piezas = (ArrayList<Pieza>)session.getAttribute("listado");
 <form action="Mover" method="POST">
 <br>
 <label>Posición origen: </label><input type="text" name="posori"><br>
-<br><
+<br>
 <label>Posición destino: </label><input type="text" name="posdes"><br>
-<br><button type="submit">Mover</button>
+<br><button type="submit">Mover</button><br>
+<a href=Guardar >Guardar partida</a>
 </form>
 </Center>
 </body>
