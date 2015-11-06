@@ -46,14 +46,18 @@ public class Mover extends HttpServlet {
 		String posori=(String)request.getParameter("posori");
 		String posdes=(String)request.getParameter("posdes");
 		String color=(String)request.getSession().getAttribute("color");
+		String dni1=(String)request.getSession().getAttribute("dni1");
+		String dni2=(String)request.getSession().getAttribute("dni2");
 		String LetrasValidas="abcdefgh";
 	    String NumerosValidos="12345678";
-		ArrayList<Pieza> piezas =(ArrayList<Pieza>)request.getSession().getAttribute("listado");
+	    ArrayList<Pieza> piezas;
+	    piezas=null;
+		piezas =(ArrayList<Pieza>)request.getSession().getAttribute("listado");
 		ControladorJuego.importarArray(piezas);
 		
 		if(posori.equals("") | posdes.equals(""))
 		{
-			request.setAttribute("error","Una o ambas posiciones son nulas");
+			request.setAttribute("error","Una o ambas posiciones son nulas. \n Complete los campos faltantes");
 			request.getRequestDispatcher("Movimientos.jsp").forward(request, response);
 		}
 		else
@@ -61,10 +65,30 @@ public class Mover extends HttpServlet {
 			{
 		try {
 			color=ctrl.realizarMovimiento(posori, posdes, color);
+			if(ctrl.estadoReyB()==null)
+			{
+				ControladorJuego.limpiarArray();
+				ctrl.terminarPartida(dni1, dni2);
+				request.setAttribute("ganador",dni2);
+				request.getRequestDispatcher("Ganador.jsp").forward(request, response);
+			}
+			else
+			{
+			   if(ctrl.estadoReyN()==null)
+			   {
+				   ControladorJuego.limpiarArray();
+				   ctrl.terminarPartida(dni1, dni2);
+				   request.setAttribute("ganador", dni1);
+				   request.getRequestDispatcher("Ganador.jsp").forward(request, response);
+			   }
+			   else
+			   {
 			request.getSession().setAttribute("color", color);
 			request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
 			request.setAttribute("error","");
 			request.getRequestDispatcher("Movimientos.jsp").forward(request, response);
+			   }
+			}
 		} catch (MovInvalidoException e) {
 			// TODO Auto-generated catch block
 			request.setAttribute("error", e.getMensaje());

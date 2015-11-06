@@ -52,13 +52,16 @@ public class Inicio extends HttpServlet {
 		request.getSession().setAttribute("dni2", dni2);
 		if(ctrl.partidaPendiente(dni1, dni2))
 		{
+		    ControladorJuego.limpiarArray();
 			ctrl.tablero();
 			ctrl.traerPosiciones(dni1, dni2);
 			ctrl.eliminarFichasNulas();
 	        color=ControladorJuego.getPartidaActual().getTurno();
 			request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
 			request.getSession().setAttribute("color",color);
+			request.setAttribute("error", "");
 			request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
+		
 		}
 		else
 		{
@@ -66,6 +69,7 @@ public class Inicio extends HttpServlet {
 		ctrl.nuevoJuego(dni1, dni2, "Blanco");
 		ctrl.asignarPiezas(dni1, dni2);
 		request.getSession().setAttribute("color","Blanco");
+		request.setAttribute("error", "");
 		request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
 		request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
 		}

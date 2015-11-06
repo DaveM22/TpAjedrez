@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <% 
 String h=(String)session.getAttribute("dni1");
 String f=(String)session.getAttribute("dni2");
@@ -32,23 +33,21 @@ ArrayList<Pieza> piezas = (ArrayList<Pieza>)session.getAttribute("listado");
 <%resultadoblanco+=i.getId_pieza()+i.getClass().getSimpleName()+" "+i.getPosicion()+"\n"; %>
 <%} %>
 <%} %>
-<div>
-<%=h %><br>
-<textarea rows="16" cols="12"><%=resultadonegro %></textarea>
-</div>
+<center>
+<table>
+<tr>
+<td><div><%=h %><br><textarea rows="16" cols="12"><%=resultadonegro %></textarea></div>
+<td><img src="board.png" alt="Mountain View" style="width:304px;height:228px;">
+<td><div><%=f %><br><textarea rows="16" cols="12"><%=resultadoblanco %></textarea></div>
+<tr>
+</table>
+</center>
 <br>
-<img alt="logo" src="<html:rewrite page='/WebContent/board.png'/>" width="100%"/>
-<div style="position:absolute; top: 8px; left:600px;">
-<%=f %><br>
-<textarea rows="16" cols="12"><%=resultadoblanco %></textarea>
-</div>
 <%piezas=null; %>
-<br>
 <Center>
-<p>Turno:<%=color %></p>
+<p><h1>Turno:</h1><%=color %></p>
 <br>
-<p><%=error %>
-<br>
+<font color="#FF0000"><p><%=error %></p></font>
 <form action="Mover" method="POST">
 <br>
 <label>Posición origen: </label><input type="text" name="posori"><br>

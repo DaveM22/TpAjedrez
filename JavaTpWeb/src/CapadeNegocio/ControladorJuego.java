@@ -321,4 +321,9 @@ private static  ArrayList<Pieza> piezas = new ArrayList<Pieza>();
 	{
    piezas=p;
 	}
+	
+	public static void limpiarArray()
+	{
+		piezas.clear();
+	}
 }
