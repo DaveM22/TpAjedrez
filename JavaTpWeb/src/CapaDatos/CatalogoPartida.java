@@ -64,6 +64,42 @@ public class CatalogoPartida {
 		}
 	}
 	
+	
+	public void agregarUsuarios(String dni,String nombre,String apellido)
+	{
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("insert into jugadores(dni,nombre,apellido) values (?,?,?)");
+			stmt.setString(1, dni);
+			stmt.setString(2, nombre);
+			stmt.setString(3, apellido);
+		    stmt.execute();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if(rs!=null ) 
+					{
+					rs.close();
+					
+					}
+				if(stmt != null) stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			FactoryConexion.getInstancia().releaseConn();
+		}
+		
+	}
+	
+
+
 	public boolean buscarUsuarios(String dni1)
 	{
 		boolean respuesta=false;
@@ -98,9 +134,6 @@ public class CatalogoPartida {
 		}
 		return respuesta;
 	}
-
-
-
 
 
 

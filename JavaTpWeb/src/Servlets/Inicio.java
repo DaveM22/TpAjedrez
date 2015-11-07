@@ -1,5 +1,6 @@
 package Servlets;
 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.*;
@@ -33,6 +34,7 @@ public class Inicio extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request,response);
 	}
 
 	/**
@@ -44,37 +46,59 @@ public class Inicio extends HttpServlet {
 		String dni1=(String)request.getParameter("dni1");
 		String dni2=(String)request.getParameter("dni2");
 		String color;
-		if(ctrl.busquedaUsuario(dni1))
+		if(ctrl.busquedaUsuario(dni1)==false)
 		{
-		request.getSession().setAttribute("dni1", dni1);
-		if(ctrl.busquedaUsuario(dni2))
-		{
-		request.getSession().setAttribute("dni2", dni2);
-		if(ctrl.partidaPendiente(dni1, dni2))
-		{
-		    ControladorJuego.limpiarArray();
-			ctrl.tablero();
-			ctrl.traerPosiciones(dni1, dni2);
-			ctrl.eliminarFichasNulas();
-	        color=ControladorJuego.getPartidaActual().getTurno();
-			request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
-			request.getSession().setAttribute("color",color);
-			request.setAttribute("error", "");
-			request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
-		
+			request.setAttribute("dni", dni1);
+			request.getRequestDispatcher("RegistrarUsuario.jsp").forward(request, response);
 		}
 		else
 		{
-		ctrl.inicializatablero();
-		ctrl.nuevoJuego(dni1, dni2, "Blanco");
-		ctrl.asignarPiezas(dni1, dni2);
-		request.getSession().setAttribute("color","Blanco");
-		request.setAttribute("error", "");
-		request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
-		request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
+				
+		
+		
+			if(ctrl.busquedaUsuario(dni2)==false)
+		{
+				request.setAttribute("dni", dni2);
+				request.getRequestDispatcher("RegistrarUsuario.jsp").forward(request, response);
 		}
+			else
+			{
+				if(ctrl.partidaPendiente(dni1, dni2))
+				{
+				    ControladorJuego.limpiarArray();
+					ctrl.tablero();
+					ctrl.traerPosiciones(dni1, dni2);
+					ctrl.eliminarFichasNulas();
+			        color=ControladorJuego.getPartidaActual().getTurno();
+			    	request.getSession().setAttribute("dni2", dni2);
+					request.getSession().setAttribute("dni1", dni1);
+					request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
+					request.getSession().setAttribute("color",color);
+					request.setAttribute("error", "");
+					request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
+				 
+				}
+				else
+				{
+				ControladorJuego.limpiarArray();
+				ctrl.inicializatablero();
+				ctrl.nuevoJuego(dni1, dni2, "Blanco");
+				ctrl.asignarPiezas(dni1, dni2);
+				request.getSession().setAttribute("dni2", dni2);
+				request.getSession().setAttribute("dni1", dni1);
+				request.getSession().setAttribute("color","Blanco");
+				request.setAttribute("error", "");
+				request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
+				request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
+				}
+				}
+			}
+		
+		
 		}
-		}
-		}
+		
+			
+		
+	
 
 }

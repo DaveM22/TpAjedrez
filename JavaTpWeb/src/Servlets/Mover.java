@@ -69,7 +69,8 @@ public class Mover extends HttpServlet {
 			{
 				ControladorJuego.limpiarArray();
 				ctrl.terminarPartida(dni1, dni2);
-				request.setAttribute("ganador",dni2);
+				request.setAttribute("ganador",dni1);
+				request.setAttribute("colorGanador", "Negras");
 				request.getRequestDispatcher("Ganador.jsp").forward(request, response);
 			}
 			else
@@ -78,7 +79,8 @@ public class Mover extends HttpServlet {
 			   {
 				   ControladorJuego.limpiarArray();
 				   ctrl.terminarPartida(dni1, dni2);
-				   request.setAttribute("ganador", dni1);
+				   request.setAttribute("ganador", dni2);
+				   request.setAttribute("colorGanador","Blancas");
 				   request.getRequestDispatcher("Ganador.jsp").forward(request, response);
 			   }
 			   else

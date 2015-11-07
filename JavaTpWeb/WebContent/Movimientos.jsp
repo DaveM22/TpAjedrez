@@ -36,20 +36,19 @@ ArrayList<Pieza> piezas = (ArrayList<Pieza>)session.getAttribute("listado");
 <center>
 <table>
 <tr>
-<td><div><%=h %><br><textarea rows="16" cols="12"><%=resultadonegro %></textarea></div>
+<td><div>Fichas Negras<br><%=h %><br><textarea readonly rows="16" cols="12"><%=resultadonegro %></textarea></div>
 <td><img src="board.png" alt="Mountain View" style="width:304px;height:228px;">
-<td><div><%=f %><br><textarea rows="16" cols="12"><%=resultadoblanco %></textarea></div>
+<td><div>Fichas Blancas<br><%=f %><br><textarea readonly rows="16" cols="12"><%=resultadoblanco %></textarea></div>
 <tr>
 </table>
 </center>
 <br>
 <%piezas=null; %>
 <Center>
-<p><h1>Turno:</h1><%=color %></p>
+<p><h6>Turno:</h6><%=color %></p>
 <br>
 <font color="#FF0000"><p><%=error %></p></font>
 <form action="Mover" method="POST">
-<br>
 <label>Posición origen: </label><input type="text" name="posori"><br>
 <br>
 <label>Posición destino: </label><input type="text" name="posdes"><br>

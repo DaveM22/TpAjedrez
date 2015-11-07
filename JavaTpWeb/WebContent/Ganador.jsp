@@ -7,12 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+<Center>
 <% String ganador=(String)request.getAttribute("ganador");
-%>
-<h1>El ganador es <%=ganador %></h1>
+String colorGanador=(String)request.getAttribute("colorGanador");%>
+<h1>El ganador es <%=ganador %> (Fichas <%=colorGanador%>)</h1>
 
 <form method="get" action="IniciarJuego.html">
-    <button type="submit">Continue</button>
+    <button type="submit">Nuevo Juego</button>
 </form>
+</Center>
 </body>
 </html>

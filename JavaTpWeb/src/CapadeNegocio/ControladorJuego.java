@@ -1,5 +1,8 @@
 package CapadeNegocio;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -8,6 +11,7 @@ import org.omg.CORBA.portable.ApplicationException;
 
 import CapaDatos.CatalogoPartida;
 import CapaDatos.CatalogoPiezas;
+import CapaDatos.FactoryConexion;
 import Clases.Alfil;
 import Clases.Caballo;
 import Clases.Dama;
@@ -126,6 +130,14 @@ private static  ArrayList<Pieza> piezas = new ArrayList<Pieza>();
 		}
 		return lista;
 	}
+	
+	
+	public void agregarPersona(String dni,String nombre,String apellido)
+	{
+		CatalogoPartida cp = new CatalogoPartida();
+		cp.agregarUsuarios(dni, nombre, apellido);
+	}
+	
 	
 	
 	public String realizarMovimiento(String posicionori,String posiciondes,String color)throws MovInvalidoException

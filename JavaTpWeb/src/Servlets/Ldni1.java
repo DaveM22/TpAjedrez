@@ -1,28 +1,29 @@
 package Servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.xml.internal.ws.api.policy.PolicyResolver.ServerContext;
+
 import CapadeNegocio.ControladorJuego;
-import Clases.Pieza;
 
 /**
- * Servlet implementation class Guardar
+ * Servlet implementation class Ldni1
  */
-@WebServlet("/Guardar")
-public class Guardar extends HttpServlet {
+@WebServlet("/Ldni1")
+public class Ldni1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Guardar() {
+    public Ldni1() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +33,32 @@ public class Guardar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String dni1=(String)request.getSession().getAttribute("dni1");
-		String dni2=(String)request.getSession().getAttribute("dni2");
-		String color=(String)request.getSession().getAttribute("color");
-		ArrayList<Pieza> piezas = (ArrayList<Pieza>)request.getSession().getAttribute("listado");
-		ControladorJuego ctrl = new ControladorJuego();
-		ControladorJuego.importarArray(piezas);
-		ctrl.terminarPartida(dni1, dni2);
-		ctrl.borrarPiezas(dni1, dni2);
-		ctrl.nuevoJuego(dni1, dni2, color);
-		ctrl.asignarPiezas(dni1, dni2);
-		request.getRequestDispatcher("Movimientos.jsp").forward(request, response);
 
+		
 	}
+	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String dni = (String)request.getParameter("dni");
+		String nombre = (String)request.getParameter("nombre");
+		String apellido = (String)request.getParameter("apellido");
+		ControladorJuego ctrl = new ControladorJuego();
+		if(ctrl.busquedaUsuario(dni))
+		{
+		request.setAttribute("errorLogin", "El usuario ya se encuentra registrado");
+		request.getRequestDispatcher("RegistrarUsuario.jsp").forward(request, response);
+		}
+		else
+		{
+	
+		ctrl.agregarPersona(dni, nombre, apellido);
+		response.sendRedirect("Inicio");
+		}
 	}
 
 }
