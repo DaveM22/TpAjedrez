@@ -8,10 +8,10 @@
 </head>
 <body>
 <%String Error=(String)request.getAttribute("errorLogin");
-String dni=(String)request.getAttribute("dni");
+String dni=(String)request.getSession().getAttribute("dni1");
 if(Error==null)
 Error="";%>
-<form action="Inicio" method="post">
+<form action="Ldni1" method="POST">
 
 <h1><%=Error %></h1>
 <center>

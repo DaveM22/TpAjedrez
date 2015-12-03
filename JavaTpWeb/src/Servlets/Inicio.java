@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import CapadeNegocio.ControladorJuego;
 import Clases.Partida;
@@ -43,9 +45,10 @@ public class Inicio extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ControladorJuego ctrl = new ControladorJuego();
-		String dni1=(String)request.getParameter("dni1");
-		String dni2=(String)request.getParameter("dni2");
+		String dni1=(String)request.getSession().getAttribute("dni1");
+		String dni2=(String)request.getSession().getAttribute("dni2");
 		String color;
+		System.out.println(dni1);
 		if(ctrl.busquedaUsuario(dni1)==false)
 		{
 			request.setAttribute("dni", dni1);
@@ -70,8 +73,6 @@ public class Inicio extends HttpServlet {
 					ctrl.traerPosiciones(dni1, dni2);
 					ctrl.eliminarFichasNulas();
 			        color=ControladorJuego.getPartidaActual().getTurno();
-			    	request.getSession().setAttribute("dni2", dni2);
-					request.getSession().setAttribute("dni1", dni1);
 					request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
 					request.getSession().setAttribute("color",color);
 					request.setAttribute("error", "");
@@ -84,8 +85,6 @@ public class Inicio extends HttpServlet {
 				ctrl.inicializatablero();
 				ctrl.nuevoJuego(dni1, dni2, "Blanco");
 				ctrl.asignarPiezas(dni1, dni2);
-				request.getSession().setAttribute("dni2", dni2);
-				request.getSession().setAttribute("dni1", dni1);
 				request.getSession().setAttribute("color","Blanco");
 				request.setAttribute("error", "");
 				request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
