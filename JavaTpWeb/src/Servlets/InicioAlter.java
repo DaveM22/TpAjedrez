@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import CapadeNegocio.ControladorJuego;
 
 /**
- * Servlet implementation class AsignarSesion
+ * Servlet implementation class InicioAlter
  */
-@WebServlet("/AsignarSesion")
-public class AsignarSesion extends HttpServlet {
+@WebServlet("/InicioAlter")
+public class InicioAlter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AsignarSesion() {
+    public InicioAlter() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +29,8 @@ public class AsignarSesion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		doPost(request,response);
 	}
 
 	/**
@@ -36,18 +38,24 @@ public class AsignarSesion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String dni1=(String)request.getParameter("dni1");
-		String dni2=(String)request.getParameter("dni2");
-		request.getSession().setAttribute("dni1", dni1);
-		request.getSession().setAttribute("dni2", dni2);
+		
+		
+		
 		ControladorJuego ctrl = new ControladorJuego();
-		if(ctrl.partidaPendiente(dni1, dni2))
-		request.getRequestDispatcher("Partidapendiente.jsp").forward(request, response);
-		else
-		request.getRequestDispatcher("/Inicio").forward(request, response);
+		String dni1=(String)request.getSession().getAttribute("dni1");
+		String dni2=(String)request.getSession().getAttribute("dni2");
+		String color;
 		
-		
-		
+		    ControladorJuego.limpiarArray();
+			ctrl.tablero();
+			ctrl.traerPosiciones(dni1, dni2);
+			ctrl.eliminarFichasNulas();
+	        color=ControladorJuego.getPartidaActual().getTurno();
+			request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
+			request.getSession().setAttribute("color",color);
+			request.setAttribute("error", "");
+			request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
+		 
+	
 	}
-
 }

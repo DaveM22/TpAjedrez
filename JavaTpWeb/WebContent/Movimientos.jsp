@@ -42,11 +42,9 @@ ArrayList<Pieza> piezas = (ArrayList<Pieza>)session.getAttribute("listado");
 <tr>
 </table>
 </center>
-<br>
 <%piezas=null; %>
 <Center>
-<p><h6>Turno:</h6><%=color %></p>
-<br>
+<p><h2>Turno:<%=color %></h2></p>
 <font color="#FF0000"><p><%=error %></p></font>
 <form action="Mover" method="POST">
 <label>Posición origen: </label><input type="text" name="posori"><br>

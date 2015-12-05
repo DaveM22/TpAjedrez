@@ -42,6 +42,7 @@ public class Guardar extends HttpServlet {
 		ctrl.borrarPiezas(dni1, dni2);
 		ctrl.nuevoJuego(dni1, dni2, color);
 		ctrl.asignarPiezas(dni1, dni2);
+		request.setAttribute("error", "La partida ha sido guardada existosamente");
 		request.getRequestDispatcher("Movimientos.jsp").forward(request, response);
 
 	}

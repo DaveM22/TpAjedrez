@@ -65,21 +65,11 @@ public class Inicio extends HttpServlet {
 		}
 			else
 			{
-				if(ctrl.partidaPendiente(dni1, dni2))
-				{
-				    ControladorJuego.limpiarArray();
-					ctrl.tablero();
-					ctrl.traerPosiciones(dni1, dni2);
-					ctrl.eliminarFichasNulas();
-			        color=ControladorJuego.getPartidaActual().getTurno();
-					request.getSession().setAttribute("listado", ControladorJuego.getPiezas());
-					request.getSession().setAttribute("color",color);
-					request.setAttribute("error", "");
-					request.getRequestDispatcher("Movimientos.jsp").forward(request,response);
-				 
-				}
-				else
-				{
+	          if(ctrl.partidaPendiente(dni1, dni2))
+	          {
+	          ctrl.terminarPartida(dni1, dni2);
+	          ctrl.borrarPiezas(dni1, dni2);
+	          }
 				ControladorJuego.limpiarArray();
 				ctrl.inicializatablero();
 				ctrl.nuevoJuego(dni1, dni2, "Blanco");
@@ -99,4 +89,4 @@ public class Inicio extends HttpServlet {
 		
 	
 
-}
+

@@ -15,7 +15,7 @@ public class Peon extends Pieza {
 		int d=Integer.parseInt(b.substring(1));  //analizo la parte numerica de la posicion(cadena)
 	    ControladorJuego cp = new ControladorJuego();
 	int distancia = color.contentEquals("Blanco")? (c-d) : (d-c);  //Hago la pregunta de que color es
-	if((distancia==2 & c==7 & color=="Blanco"))
+	if((distancia==2 && c==7 && color.equals("Blanco") && a.substring(0,1).equals(b.substring(0,1))) | (distancia==2 && c==2 && color.equals("Negro")))
 	return true;
 	else
 	{

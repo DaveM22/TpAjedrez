@@ -10,8 +10,8 @@
 <Center>
 <% String ganador=(String)request.getAttribute("ganador");
 String colorGanador=(String)request.getAttribute("colorGanador");%>
-<center><h1>El ganador es <%=ganador %> (Fichas <%=colorGanador%>)</h1></center>
-
+<center><h1>El ganador es <%=ganador %> (Fichas <%=colorGanador%>)</h1>
+<img src="ganador.png" alt="Mountain View" style="width:304px;height:228px;"></center>
 <form method="get" action="IniciarJuego.html">
     <button type="submit">Nuevo Juego</button>
 </form>
