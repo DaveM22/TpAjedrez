@@ -8,14 +8,15 @@
 </head>
 <body>
 <%String Error=(String)request.getAttribute("errorLogin");
-String dni=(String)request.getSession().getAttribute("dni1");
+String dni=(String)request.getSession().getAttribute("dniRegistrar");
 if(Error==null)
 Error="";%>
 <form action="Ldni1" method="POST">
 
 <h1><%=Error %></h1>
+
 <center>
-Dni:<%=dni %>
+<h2>El jugador de Dni:<%=dni %> no se encuentra registrado, por favor complete los campos para su posterior registro</h2>
 <br>
 nombre:<input type="text" name="nombre"><br>
 <br>
