@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Registro de usuarios</title>
 </head>
 <body>
 <%String Error=(String)request.getAttribute("errorLogin");

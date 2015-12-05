@@ -48,10 +48,9 @@ public class Inicio extends HttpServlet {
 		String dni1=(String)request.getSession().getAttribute("dni1");
 		String dni2=(String)request.getSession().getAttribute("dni2");
 		String color;
-		System.out.println(dni1);
 		if(ctrl.busquedaUsuario(dni1)==false)
 		{
-			request.setAttribute("dni", dni1);
+			request.getSession().setAttribute("dniRegistrar", dni1);
 			request.getRequestDispatcher("RegistrarUsuario.jsp").forward(request, response);
 		}
 		else
@@ -61,7 +60,7 @@ public class Inicio extends HttpServlet {
 		
 			if(ctrl.busquedaUsuario(dni2)==false)
 		{
-				request.setAttribute("dni", dni2);
+				request.getSession().setAttribute("dniRegistrar", dni2);
 				request.getRequestDispatcher("RegistrarUsuario.jsp").forward(request, response);
 		}
 			else

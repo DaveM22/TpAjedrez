@@ -44,7 +44,7 @@ public class Ldni1 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String dni = (String)request.getSession().getAttribute("dni1");
+		String dni = (String)request.getSession().getAttribute("dniRegistrar");
 		String nombre = (String)request.getParameter("nombre");
 		String apellido = (String)request.getParameter("apellido");
 		ControladorJuego ctrl = new ControladorJuego();

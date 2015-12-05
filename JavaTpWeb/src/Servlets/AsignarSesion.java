@@ -36,7 +36,6 @@ public class AsignarSesion extends HttpServlet {
 		// TODO Auto-generated method stub
 		String dni1=(String)request.getParameter("dni1");
 		String dni2=(String)request.getParameter("dni2");
-		System.out.println(dni1);
 		request.getSession().setAttribute("dni1", dni1);
 		request.getSession().setAttribute("dni2", dni2);
 		request.getRequestDispatcher("/Inicio").forward(request, response);

@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Victoria!</title>
 </head>
 <body>
 <Center>
 <% String ganador=(String)request.getAttribute("ganador");
 String colorGanador=(String)request.getAttribute("colorGanador");%>
-<h1>El ganador es <%=ganador %> (Fichas <%=colorGanador%>)</h1>
+<center><h1>El ganador es <%=ganador %> (Fichas <%=colorGanador%>)</h1></center>
 
 <form method="get" action="IniciarJuego.html">
     <button type="submit">Nuevo Juego</button>
